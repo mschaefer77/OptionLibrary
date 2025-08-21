@@ -1,21 +1,21 @@
-#Option Pricing Library
+# Option Pricing Library
 
 > **An extension of my Numerical Methods for Option Pricing class** - implementing the theoretical models covered in coursework into a practical, computational library.
 
-##Overview
+## Overview
 
 This library provides option analysis tools include
 
 ## Features
 
-- **Three Core Dynamics Models**: Geometric Brownian Motion (GBM), Heston Stochastic Volatility, Merton Jump-Diffusion
+- **Three Dynamics Models**: Geometric Brownian Motion (GBM), Heston Stochastic Volatility, Merton Jump-Diffusion
 - **Multiple Pricing Methods**: Black-Scholes, Monte Carlo, Binomial Trees, Trinomial Trees, Finite Difference Schemes
-- **Advanced Numerical Methods**: Explicit, Implicit, and Crank-Nicolson finite difference schemes
+- **Numerical Methods**: Explicit, Implicit, and Crank-Nicolson finite difference schemes
 - **Real Market Data Integration**: YFinance API for option chain analysis
 - **Greeks Calculation**: Delta, Gamma, Vega, Theta, Rho
 - **Volatility Analysis**: Implied volatility calculation and volatility skew visualization
 
-##Mathematical Foundation
+## Mathematical Foundation
 
 ### Underlying Dynamics
 
@@ -80,51 +80,21 @@ We discretize the continuous PDE using finite differences on a grid:
 Forward Euler method in time, central differences in space:
 $$\frac{V_{i,j+1} - V_{i,j}}{\Delta t} + \frac{1}{2}\sigma^2S_i^2\frac{V_{i+1,j} - 2V_{i,j} + V_{i-1,j}}{\Delta S^2} + rS_i\frac{V_{i+1,j} - V_{i-1,j}}{2\Delta S} - rV_{i,j} = 0$$
 
-**Advantages:**
-- Simple implementation
-- Direct solution at each time step
-- No matrix inversion required
-
-**Disadvantages:**
-- Conditional stability: requires $\Delta t \leq \frac{\Delta S^2}{2\sigma^2S_{max}^2}$
-- First-order accuracy in time
 
 **2. Implicit Finite Difference Scheme:**
 Backward Euler method in time, central differences in space:
 $$\frac{V_{i,j+1} - V_{i,j}}{\Delta t} + \frac{1}{2}\sigma^2S_i^2\frac{V_{i+1,j+1} - 2V_{i,j+1} + V_{i-1,j+1}}{\Delta S^2} + rS_i\frac{V_{i+1,j+1} - V_{i-1,j+1}}{2\Delta S} - rV_{i,j+1} = 0$$
 
-**Advantages:**
-- Unconditionally stable
-- Better stability properties
-
-**Disadvantages:**
-- Requires solving tridiagonal system at each time step
-- First-order accuracy in time
-- More computationally intensive
-
 **3. Crank-Nicolson Scheme:**
 Averaging explicit and implicit schemes for second-order accuracy:
 $$\frac{V_{i,j+1} - V_{i,j}}{\Delta t} + \frac{1}{2}\sigma^2S_i^2\frac{1}{2}\left[\frac{V_{i+1,j} - 2V_{i,j} + V_{i-1,j}}{\Delta S^2} + \frac{V_{i+1,j+1} - 2V_{i,j+1} + V_{i-1,j+1}}{\Delta S^2}\right] + rS_i\frac{1}{2}\left[\frac{V_{i+1,j} - V_{i-1,j}}{2\Delta S} + \frac{V_{i+1,j+1} - V_{i-1,j+1}}{2\Delta S}\right] - r\frac{V_{i,j} + V_{i,j+1}}{2} = 0$$
 
-**Advantages:**
-- Second-order accuracy in both time and space
-- Unconditionally stable
-- Better convergence properties
-
-**Disadvantages:**
-- More complex implementation
-- Requires solving tridiagonal system
-- Slightly more computationally intensive than implicit
 
 **Boundary Conditions:**
 - **At $S = 0$**: $V(0,t) = 0$ for calls, $V(0,t) = Ke^{-r(T-t)}$ for puts
 - **At $S = S_{max}$**: $V(S_{max},t) = S_{max} - Ke^{-r(T-t)}$ for calls, $V(S_{max},t) = 0$ for puts
 - **At $t = T$**: $V(S,T) = \max(S-K, 0)$ for calls, $V(S,T) = \max(K-S, 0)$ for puts
 
-**Implementation Notes:**
-- All schemes handle both call and put options
-- Non-GBM dynamics use Monte Carlo fallback
-- Grid refinement improves accuracy but increases computation time
 
 ## 🚀 Installation
 
