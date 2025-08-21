@@ -2,9 +2,6 @@
 
 > **An extension of my Numerical Methods for Option Pricing class** - implementing the theoretical models covered in coursework into a practical, computational library.
 
-## Overview
-
-This library provides option analysis tools include
 
 ## Features
 
@@ -94,36 +91,6 @@ $$\frac{V_{i,j+1} - V_{i,j}}{\Delta t} + \frac{1}{2}\sigma^2S_i^2\frac{1}{2}\lef
 - **At $S = 0$**: $V(0,t) = 0$ for calls, $V(0,t) = Ke^{-r(T-t)}$ for puts
 - **At $S = S_{max}$**: $V(S_{max},t) = S_{max} - Ke^{-r(T-t)}$ for calls, $V(S_{max},t) = 0$ for puts
 - **At $t = T$**: $V(S,T) = \max(S-K, 0)$ for calls, $V(S,T) = \max(K-S, 0)$ for puts
-
-
-## 🚀 Installation
-
-### Prerequisites
-- Python 3.8+
-- pip package manager
-
-### Install from Source
-```bash
-# Clone the repository
-git clone https://github.com/yourusername/optiontracka.git
-cd optiontracka
-
-# Install dependencies
-pip install -r requirements.txt
-
-# Install the library
-pip install -e .
-```
-
-### Dependencies
-```
-numpy>=1.21.0
-scipy>=1.7.0
-matplotlib>=3.5.0
-pandas>=1.3.0
-yfinance>=0.1.70
-scikit-learn>=1.0.0
-```
 
 
 ## Running Demos 
